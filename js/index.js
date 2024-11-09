@@ -1,10 +1,11 @@
 
-
+let count =0;
 
 //2. add event listener for 'calculateButton' button :--
 const calculateButton = document.getElementById('calculate');
 // console.log(calculateButton);
 calculateButton.addEventListener('click', function(){
+    count += 1;
     //1. getting all the input fields's value 
 const income = parseFloat (document.getElementById('income').value);
 const software = parseFloat(document.getElementById('software').value);
@@ -27,6 +28,26 @@ const internet = parseFloat(document.getElementById ('internet').value);
     //##** remove hidden class from result 
     const result = document.getElementById('results');
     result.classList.remove('hidden');
+
+
+
+
+    // history 
+    const historyItem = document.createElement('div');
+    historyItem.className = "bg-white p-3 rounded-md border-l-2 border-indigo-500";
+
+    historyItem.innerHTML = `
+    <p class="text-xs text-gray-500"> Serial: ${count} </p>
+    <p class="text-xs text-gray-500">${new Date().toLocaleDateString()}</p>
+    <p class="text-xs text-gray-500">Income: $${income.toFixed(2)}</p>
+    <p class="text-xs text-gray-500">Expenses: $${totalExpenses.toFixed(2)}</p>
+    <p class="text-xs text-gray-500">Balance: $${balance.toFixed(2)}</p>
+
+    `;
+    const historyContainer = document.getElementById('history-list');
+    console.log('hitoryContainer');
+    historyContainer.insertBefore(historyItem, historyContainer.firstChild);
+
 })
 
 
@@ -59,3 +80,40 @@ const internet = parseFloat(document.getElementById ('internet').value);
 
   
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+// history tab function 
+const historyTab = document.getElementById('history-tab');
+const assistantTab = document.getElementById('assistant-tab');
+historyTab.addEventListener('click', function(){
+    // console.log('history tab is clicked');
+    historyTab.classList.add(
+        'text-white', 
+         'bg-gradient-to-r', 
+         'from-blue-500', 
+         'to-purple-600')
+    historyTab.classList.remove('text-gray-600');
+
+    assistantTab.classList.remove(
+        'text-white',  
+        'bg-gradient-to-r', 
+        'from-blue-500', 
+        'to-purple-600'),
+    assistantTab.classList.add('text-gray-600');
+
+
+
+    document.getElementById('expense-form').classList.add("hidden");
+    document.getElementById('history-section').classList.remove("hidden");
+});
